@@ -39,9 +39,9 @@ Engine::Point PlayScene::GetClientSize() {
 	return Engine::Point(MapWidth * BlockSize, MapHeight * BlockSize);
 }
 void PlayScene::Initialize() {
-	// TODO: [HACKATHON-3-BUG] (1/5): There's a bug in this file, which crashes the game when you lose. Try to find it.
+	// TODO: [HACKATHON-3-BUG] (1/5): There's a bug in this file, which crashes the game when you lose. Try to find it.(change scene lose)
 	// TODO: [HACKATHON-3-BUG] (2/5): Find out the cheat code to test. = 上上下下左左右右BA shift Enter
-    // TODO: [HACKATHON-3-BUG] (2/5): It should generate a Plane, and add 10000 to the money, but it doesn't work now.
+    // TODO: [HACKATHON-3-BUG] (2/5): It should generate a Plane, and add 10000 to the money, but it doesn't work now. now it works
 	mapState.clear();
 	keyStrokes.clear();
 	ticks = 0;
@@ -344,6 +344,7 @@ void PlayScene::ReadMap() {
 void PlayScene::ReadEnemyWave() {
     // TODO: [HACKATHON-3-BUG] (3/5): Trace the code to know how the enemies are created.
     // TODO: [HACKATHON-3-BUG] (3/5): There is a bug in these files, which let the game only spawn the first enemy, try to fix it.
+	// enemy1.txt: 1 1 a
     std::string filename = std::string("Resource/enemy") + std::to_string(MapId) + ".txt";
 	// Read enemy file.
 	float type, wait, repeat;
