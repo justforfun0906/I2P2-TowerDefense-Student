@@ -40,7 +40,7 @@ Engine::Point PlayScene::GetClientSize() {
 }
 void PlayScene::Initialize() {
 	// TODO: [HACKATHON-3-BUG] (1/5): There's a bug in this file, which crashes the game when you lose. Try to find it.
-	// TODO: [HACKATHON-3-BUG] (2/5): Find out the cheat code to test.
+	// TODO: [HACKATHON-3-BUG] (2/5): Find out the cheat code to test. = 上上下下左左右右BA shift Enter
     // TODO: [HACKATHON-3-BUG] (2/5): It should generate a Plane, and add 10000 to the money, but it doesn't work now.
 	mapState.clear();
 	keyStrokes.clear();
@@ -271,6 +271,7 @@ void PlayScene::OnKeyDown(int keyCode) {
 				++it;
 			}
 			EffectGroup->AddNewObject(new Plane());
+			EarnMoney(10000);
 		}
 	}
 	if (keyCode == ALLEGRO_KEY_Q) {
@@ -295,7 +296,7 @@ void PlayScene::Hit() {
 	lives--;
 	UILives->Text = std::string("Life ") + std::to_string(lives);
 	if (lives <= 0) {
-		Engine::GameEngine::GetInstance().ChangeScene("lose-scene");
+		Engine::GameEngine::GetInstance().ChangeScene("lose");
 	}
 }
 int PlayScene::GetMoney() const {
