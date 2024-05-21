@@ -11,6 +11,8 @@
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
 #include "ScoreBoardScene.hpp"
+#include <fstream>
+#include <sstream>
 
 
 void ScoreBoardScene::Initialize() {
@@ -27,6 +29,37 @@ void ScoreBoardScene::Initialize() {
 	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
 	//TODO: change the BGM
 	bgmInstance = AudioHelper::PlaySample("select.ogg", true, AudioHelper::BGMVolume);
+
+	//leaderboard body
+	std::ifstream fin("Resource/scoreboard.txt");
+
+    // Check if the file was opened successfully.
+    if (!fin) {
+        throw std::runtime_error("Unable to open scoreboard file");
+    }
+
+    // Read data from the file.
+    std::string line;
+	int i = 0;
+    while (std::getline(fin, line)) {
+        // Process the line. For example, you could split it into a name and a score.
+        std::istringstream iss(line);
+        std::string name;
+        int score;
+        if (!(iss >> name >> score)) {
+            throw std::runtime_error("Scoreboard file is corrupted");
+        }
+
+        // TODO: Use the name and score.
+		std::string text = name + ": " + std::to_string(score);
+        int y = halfH / 4 + 10 + 50 * (i + 1);  // Calculate the y position of the label.
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 48, halfW, y, 255, 255, 255, 255, 0.5, 0.5));
+
+        i++;
+    }
+
+    // Close the file.
+    fin.close();
 }
 void ScoreBoardScene::Terminate() {
 	AudioHelper::StopSample(bgmInstance);
