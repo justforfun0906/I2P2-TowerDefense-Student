@@ -53,7 +53,7 @@ void ScoreBoardScene::Initialize() {
         // TODO: Use the name and score.
 		std::string text = name + ": " + std::to_string(score);
         int y = halfH / 4 + 10 + 50 * (i + 1);  // Calculate the y position of the label.
-        AddNewObject(new Engine::Label(text, "pirulen.ttf", 48, halfW, y, 255, 255, 255, 255, 0.5, 0.5));
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, halfW, y, 255, 255, 255, 255, 0.5, 0.5));
 
         i++;
     }
