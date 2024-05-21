@@ -1,12 +1,12 @@
   // namespace Engine
-  #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_font.h>
 #include <memory>
 
 #include "Engine/IObject.hpp"
 #include "Label.hpp"
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
-  #include "UI/Component/TextInput.hpp"
+#include "UI/Component/TextInput.hpp"
 
 namespace Engine {
     TextInput::TextInput(std::string text, std::string font, float fontSize, float x, float y, float w, float h)
@@ -15,6 +15,9 @@ namespace Engine {
     }
 
     void TextInput::OnKeyDown(int keyCode) {
+    if(text == "Enter your name") {
+        text = "";
+    }
     if (keyCode >= ALLEGRO_KEY_A && keyCode <= ALLEGRO_KEY_Z) {
         // Convert A-Z key codes to lowercase characters
         text += 'a' + (keyCode - ALLEGRO_KEY_A);

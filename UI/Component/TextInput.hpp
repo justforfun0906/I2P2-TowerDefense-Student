@@ -8,10 +8,6 @@ namespace Engine {
     public:
         virtual ~IInputHandler() = default;
         virtual void OnKeyDown(int keyCode) = 0;
-        virtual void OnKeyUp(int keyCode) = 0;
-        virtual void OnMouseDown(int button, int x, int y) = 0;
-        virtual void OnMouseUp(int button, int x, int y) = 0;
-        virtual void OnMouseMove(int x, int y) = 0;
     };
     class TextInput : public IControl , public IInputHandler, public Label{
     public:
