@@ -17,6 +17,7 @@
 #include "Turret/LaserTurret.hpp"
 #include "Turret/MachineGunTurret.hpp"
 #include "Turret/MissileTurret.hpp"
+#include "Turret/CustomTurret.hpp"
 #include "UI/Animation/Plane.hpp"
 #include "Enemy/PlaneEnemy.hpp"
 #include "PlayScene.hpp"
