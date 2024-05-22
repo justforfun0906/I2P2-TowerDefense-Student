@@ -15,8 +15,60 @@
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
+#include <vector>
 
+struct Record {
+    std::string name;
+    int score;
+    std::string date;
+};
+using namespace std;
+using namespace Engine;
+// Create vectors to hold the records for each stage.
+std::vector<Record> stage1Records, stage2Records;
+void ScoreBoardScene::showBoard(){
+	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
+int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
+int halfW = w / 2;
+int halfH = h / 2;
+	std::ifstream fin("Resource/scoreboard.txt");
+	std::string line;
+while (std::getline(fin, line)) {
+    // Process the line.
+    std::istringstream iss(line);
+    std::string name, week, month, day, time, year;
+    int stage, score;
+    if (!(iss >> stage >> name >> score >> week >> month >> day >> time >> year)) {
+        throw std::runtime_error("Scoreboard file is corrupted");
+    }
+    std::string date = month + " " + day;
 
+    // Store the record in the appropriate vector.
+    if (stage == 1) {
+        stage1Records.push_back({name, score, date});
+    } else if (stage == 2) {
+        stage2Records.push_back({name, score, date});
+    }
+}
+// Sort the records in descending order by score.
+auto compare = [](const Record& a, const Record& b) { return a.score > b.score; };
+std::sort(stage1Records.begin(), stage1Records.end(), compare);
+std::sort(stage2Records.begin(), stage2Records.end(), compare);
+
+// Display the top 10 records for each stage.
+for (int i = 0; i < 10; i++) {
+    if (i < stage1Records.size()) {
+        std::string text = stage1Records[i].name + ": " + std::to_string(stage1Records[i].score) + " " + stage1Records[i].date;
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
+    }
+    if (i < stage2Records.size()) {
+        std::string text = stage2Records[i].name + ": " + std::to_string(stage2Records[i].score) + " " + stage2Records[i].date;
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, halfW + halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
+    }
+}
+    // Close the file.
+    fin.close();
+}
 void ScoreBoardScene::Initialize() {
 	// TODO: [HACKATHON-1-SCENE] (1/4): You can imitate the 2 files: 'LoseScene.hpp', 'LoseScene.cpp' to implement your start scene.
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
@@ -34,41 +86,7 @@ void ScoreBoardScene::Initialize() {
 	//TODO: change the BGM
 	bgmInstance = AudioHelper::PlaySample("select.ogg", true, AudioHelper::BGMVolume);
 	// Read from file.
-	std::ifstream fin("Resource/scoreboard.txt");
-
-	// Check if the file was opened successfully.
-	if (!fin) {
-    	throw std::runtime_error("Unable to open scoreboard file");
-	}
-
-	// Read data from the file.
-	std::string line;
-	int i = 0, j = 0;
-	while (std::getline(fin, line)) {
-    	// Process the line. For example, you could split it into a name and a score.
-    	std::istringstream iss(line);
-    	std::string name,week,month,day,time,year;
-    	int stage, score;
-    	if (!(iss >> stage >> name >> score >> week>>month>>day>>time>>year)) {
-        	throw std::runtime_error("Scoreboard file is corrupted");
-    	}
-		std::string text = name + ": " + std::to_string(score) + " " + month+" "+day;
-    	int y;
-        if (stage == 1) {
-            y = halfH / 4 + 110 + 50 * i;  // Calculate the y position of the label for stage 1.
-            i++;
-        } else if (stage == 2) {
-            y = halfH / 4 + 110 + 50 * j;  // Calculate the y position of the label for stage 2.
-            j++;
-        } else {
-            continue;  // Skip if the stage is not 1 or 2.
-        }
-        int x = (stage == 1) ? halfW / 2 : halfW + halfW / 2;  // Calculate the x position of the label.
-        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, x, y, 255, 255, 255, 255, 0.5, 0.5));
-		//std::cout<<text<<std::endl;
-	}
-    // Close the file.
-    fin.close();
+	showBoard();
 }
 void ScoreBoardScene::Terminate() {
 	AudioHelper::StopSample(bgmInstance);
