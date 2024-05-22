@@ -11,6 +11,7 @@
 #include "WinScene.hpp"
 #include "ScoreBoardScene.hpp"
 #include "UI/Component/TextInput.hpp"
+#include <fstream>
 
 void WinScene::Initialize() {
 	ticks = 0;
@@ -18,14 +19,7 @@ void WinScene::Initialize() {
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
 	int halfW = w / 2;
 	int halfH = h / 2;
-	//AddNewObject(new Engine::Image("win/benjamin-sad.png", halfW, halfH, 0, 0, 0.5, 0.5));
-	AddNewObject(new Engine::Label("You Win!", "pirulen.ttf", 48, halfW, halfH / 4 -10, 255, 255, 255, 255, 0.5, 0.5));
-	Engine::ImageButton* btn;
-	btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 50, 400, 100);
-	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 2));
-	AddNewControlObject(btn);
-	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
-	bgmId = AudioHelper::PlayAudio("win.wav");
+
 	// Create a TextInput object
     Engine::TextInput* input = new Engine::TextInput("Enter your name", "pirulen.ttf", 48, halfW-200, halfH * 3 / 4, 400, 100);
 	std::string scoreStr = "Score: " + std::to_string(Engine::GameEngine::remainingMoney); // replace 'score' with your score variable
@@ -34,10 +28,19 @@ void WinScene::Initialize() {
 
     // Add the TextInput object to the scene
     AddNewControlObject(input);
+	//AddNewObject(new Engine::Image("win/benjamin-sad.png", halfW, halfH, 0, 0, 0.5, 0.5));
+	AddNewObject(new Engine::Label("You Win!", "pirulen.ttf", 48, halfW, halfH / 4 -10, 255, 255, 255, 255, 0.5, 0.5));
+	Engine::ImageButton* btn;
+	btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 50, 400, 100);
+	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 2, scoreStr, input->GetText(), "0"));
+	AddNewControlObject(btn);
+	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
+	bgmId = AudioHelper::PlayAudio("win.wav");
 }
 void WinScene::Terminate() {
 	IScene::Terminate();
 	AudioHelper::StopBGM(bgmId);
+	
 }
 void WinScene::Update(float deltaTime) {
 	ticks += deltaTime;
@@ -47,7 +50,24 @@ void WinScene::Update(float deltaTime) {
 		bgmId = AudioHelper::PlayBGM("happy.ogg");
 	}
 }
-void WinScene::BackOnClick(int stage) {
+void WinScene::BackOnClick(int stage,std::string score, std::string name, std::string time) {
 	// Change to select scene.
+	// Get the player's name from the TextInput component
+    std::string playerName = name;
+
+    // Assume you have the player's score and time stored in variables `playerScore` and `playerTime`
+    // You need to replace these with the actual variables or function calls that return these values
+
+    // Open the scoreboard file in append mode
+    std::ofstream fout("Resource/scoreboard.txt", std::ios::app);
+    if (!fout) {
+        throw std::runtime_error("Unable to open scoreboard file");
+    }
+
+    // Write the player's name, score, and time to the file
+    fout <<'\n' << playerName << " " << score << " " << time << std::endl;
+
+    // Close the file
+    fout.close();
 	Engine::GameEngine::GetInstance().ChangeScene("stage-select");
 }

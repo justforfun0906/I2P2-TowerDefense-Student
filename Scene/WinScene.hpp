@@ -12,7 +12,7 @@ public:
 	void Initialize() override;
 	void Terminate() override;
 	void Update(float deltaTime) override;
-	void BackOnClick(int stage);
+	void BackOnClick(int stage, std::string score, std::string name, std::string time);
 };
 
 #endif // WINSCENE_HPP
