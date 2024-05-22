@@ -33,7 +33,7 @@ void WinScene::Initialize() {
 	AddNewObject(new Engine::Label("You Win!", "pirulen.ttf", 48, halfW, halfH / 4 -10, 255, 255, 255, 255, 0.5, 0.5));
 	Engine::ImageButton* btn;
 	btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 50, 400, 100);
-	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 1, scoreStr, input, "0"));
+	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 1, std::to_string(Engine::GameEngine::remainingMoney), input, "0"));
 	AddNewControlObject(btn);
 	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
 	bgmId = AudioHelper::PlayAudio("win.wav");
@@ -68,7 +68,7 @@ void WinScene::BackOnClick(int stage,std::string score, Engine::TextInput* input
     }
 
     // Write the player's name, score, and time to the file
-    fout <<stage<< " "<<playerName<<" "<< score << " " << timeStr<< std::endl;
+    fout <<stage<< " "<<playerName<<" "<< score << " " << timeStr<<'\n';
 
     // Close the file
     fout.close();

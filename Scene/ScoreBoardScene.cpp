@@ -32,9 +32,12 @@ int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
 int halfW = w / 2;
 int halfH = h / 2;
 	std::ifstream fin("Resource/scoreboard.txt");
-	std::string line;
+	std::string line="";
 while (std::getline(fin, line)) {
     // Process the line.
+    if (line.empty()||(line[0]!='1'&&line[0]!='2')) {
+        continue;
+    }
     std::istringstream iss(line);
     std::string name, week, month, day, time, year;
     int stage, score;
@@ -89,6 +92,8 @@ void ScoreBoardScene::Initialize() {
 	showBoard();
 }
 void ScoreBoardScene::Terminate() {
+    stage1Records.clear();
+    stage2Records.clear();
 	AudioHelper::StopSample(bgmInstance);
 	bgmInstance = std::shared_ptr<ALLEGRO_SAMPLE_INSTANCE>();
 	IScene::Terminate();
