@@ -48,6 +48,7 @@ void PlayScene::Initialize() {
 	deathCountDown = -1;
 	lives = 10;
 	money = 150;
+	Engine::GameEngine::remainingMoney = this->money;
 	SpeedMult = 1;
 	// Add groups from bottom to top.
 	AddNewObject(TileMapGroup = new Group());
@@ -141,6 +142,7 @@ void PlayScene::Update(float deltaTime) {
 				delete UIGroup;
 				delete imgTarget;*/
 				Engine::GameEngine::GetInstance().ChangeScene("win");
+				Engine::GameEngine::remainingMoney = this->money;
 			}
 			continue;
 		}

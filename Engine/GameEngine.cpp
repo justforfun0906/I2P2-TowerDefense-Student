@@ -19,6 +19,7 @@
 #include "Resources.hpp"
 
 namespace Engine {
+	int GameEngine::remainingMoney = 0;
 	void GameEngine::initAllegro5() {
 		if (!al_init()) throw Allegro5Exception("failed to initialize allegro");
 

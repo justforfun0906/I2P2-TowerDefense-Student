@@ -154,6 +154,7 @@ namespace Engine {
 		/// </summary>
 		/// <returns>The Singleton instance of GameEngine.</returns>
 		static GameEngine& GetInstance();
+		static int remainingMoney;
 	};
 }
 #endif // GAMEENGINE_HPP
