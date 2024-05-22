@@ -10,8 +10,9 @@
 #include "Engine/Point.hpp"
 #include "WinScene.hpp"
 #include "ScoreBoardScene.hpp"
-#include "UI/Component/TextInput.hpp"
+//#include "UI/Component/TextInput.hpp"
 #include <fstream>
+#include <chrono>
 
 void WinScene::Initialize() {
 	ticks = 0;
@@ -32,7 +33,7 @@ void WinScene::Initialize() {
 	AddNewObject(new Engine::Label("You Win!", "pirulen.ttf", 48, halfW, halfH / 4 -10, 255, 255, 255, 255, 0.5, 0.5));
 	Engine::ImageButton* btn;
 	btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 50, 400, 100);
-	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 2, scoreStr, input->GetText(), "0"));
+	btn->SetOnClickCallback(std::bind(&WinScene::BackOnClick, this, 1, scoreStr, input, "0"));
 	AddNewControlObject(btn);
 	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
 	bgmId = AudioHelper::PlayAudio("win.wav");
@@ -50,11 +51,13 @@ void WinScene::Update(float deltaTime) {
 		bgmId = AudioHelper::PlayBGM("happy.ogg");
 	}
 }
-void WinScene::BackOnClick(int stage,std::string score, std::string name, std::string time) {
+void WinScene::BackOnClick(int stage,std::string score, Engine::TextInput* input, std::string time) {
 	// Change to select scene.
 	// Get the player's name from the TextInput component
-    std::string playerName = name;
-
+    std::string playerName = input->GetText();
+	auto now = std::chrono::system_clock::now();
+	std::time_t end_time = std::chrono::system_clock::to_time_t(now);
+	std::string timeStr = std::ctime(&end_time);
     // Assume you have the player's score and time stored in variables `playerScore` and `playerTime`
     // You need to replace these with the actual variables or function calls that return these values
 
@@ -65,7 +68,7 @@ void WinScene::BackOnClick(int stage,std::string score, std::string name, std::s
     }
 
     // Write the player's name, score, and time to the file
-    fout <<'\n' << playerName << " " << score << " " << time << std::endl;
+    fout <<"Stage:"<<stage<< playerName << " " << score << " " << timeStr<< std::endl;
 
     // Close the file
     fout.close();
