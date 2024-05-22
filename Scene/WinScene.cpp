@@ -68,7 +68,7 @@ void WinScene::BackOnClick(int stage,std::string score, Engine::TextInput* input
     }
 
     // Write the player's name, score, and time to the file
-    fout <<"Stage:"<<stage<< playerName << " " << score << " " << timeStr<< std::endl;
+    fout <<stage<< " "<<playerName<<" "<< score << " " << timeStr<< std::endl;
 
     // Close the file
     fout.close();
