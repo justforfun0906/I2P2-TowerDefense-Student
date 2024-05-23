@@ -15,7 +15,7 @@ namespace Engine {
     }
 
     void TextInput::OnKeyDown(int keyCode) {
-    if(text == "Enter your name") {
+    if(text == "Enter_your_name") {
         text = "";
     }
     if (keyCode >= ALLEGRO_KEY_A && keyCode <= ALLEGRO_KEY_Z) {

@@ -22,7 +22,7 @@ void WinScene::Initialize() {
 	int halfH = h / 2;
 
 	// Create a TextInput object
-    Engine::TextInput* input = new Engine::TextInput("Enter your name", "pirulen.ttf", 48, halfW-200, halfH * 3 / 4, 400, 100);
+    Engine::TextInput* input = new Engine::TextInput("Enter_your_name", "pirulen.ttf", 48, halfW-200, halfH * 3 / 4, 400, 100);
 	std::string scoreStr = "Score: " + std::to_string(Engine::GameEngine::remainingMoney); // replace 'score' with your score variable
 	Engine::Label* scoreLabel = new Engine::Label(scoreStr, "pirulen.ttf", 48, halfW, halfH / 2, 255, 255, 255, 255, 0.5, 0.5);
 	AddNewObject(scoreLabel);
