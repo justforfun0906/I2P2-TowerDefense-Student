@@ -26,5 +26,5 @@ void CustomTurret::CreateBullet() {
 	getPlayScene()->BulletGroup->AddNewObject(new FireBullet(Position + normalized * 36, diff, rotation, this));
 	getPlayScene()->BulletGroup->AddNewObject(new FireBullet(Position + normalized * 36, diff, rotation, this));
 	getPlayScene()->BulletGroup->AddNewObject(new FireBullet(Position + normalized * 36, diff, rotation, this));
-	AudioHelper::PlayAudio("gun.wav");
+	AudioHelper::PlayAudio("laser.wav");
 }

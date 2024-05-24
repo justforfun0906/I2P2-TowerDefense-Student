@@ -76,6 +76,8 @@ add_executable(2024_I2P2_TowerDefense_with_answer
         UI/Component/Slider.hpp
         Enemy/SoldierEnemy.cpp
         Enemy/SoldierEnemy.hpp
+        Enemy/CustomEnemy.cpp
+        Enemy/CustomEnemy.hpp
         Engine/Sprite.cpp
         Engine/Sprite.hpp
         Scene/StageSelectScene.cpp

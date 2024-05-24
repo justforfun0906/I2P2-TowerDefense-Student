@@ -24,6 +24,7 @@
 #include "Engine/Resources.hpp"
 #include "Enemy/SoldierEnemy.hpp"
 #include "Enemy/TankEnemy.hpp"
+#include "Enemy/CustomEnemy.hpp"
 #include "Turret/TurretButton.hpp"
 
 bool PlayScene::DebugMode = false;
@@ -163,6 +164,9 @@ void PlayScene::Update(float deltaTime) {
 			break;
 		case 3:
 			EnemyGroup->AddNewObject(enemy = new TankEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
+			break;
+		case 4:
+			EnemyGroup->AddNewObject(enemy = new CustomEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
 			break;
         // TODO: [CUSTOM-ENEMY]: You need to modify 'Resource/enemy1.txt', or 'Resource/enemy2.txt' to spawn the 4th enemy.
         //         The format is "[EnemyId] [TimeDelay] [Repeat]".
