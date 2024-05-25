@@ -44,7 +44,7 @@ while (std::getline(fin, line)) {
     if (!(iss >> stage >> name >> score >> week >> month >> day >> time >> year)) {
         throw std::runtime_error("Scoreboard file is corrupted");
     }
-    std::string date = month + " " + day;
+    std::string date = month + " " + day + " "+time;
 
     // Store the record in the appropriate vector.
     if (stage == 1) {
@@ -62,11 +62,11 @@ std::sort(stage2Records.begin(), stage2Records.end(), compare);
 for (int i = 0; i < 10; i++) {
     if (i < stage1Records.size()) {
         std::string text = stage1Records[i].name + ": " + std::to_string(stage1Records[i].score) + " " + stage1Records[i].date;
-        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 26, halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
     }
     if (i < stage2Records.size()) {
         std::string text = stage2Records[i].name + ": " + std::to_string(stage2Records[i].score) + " " + stage2Records[i].date;
-        AddNewObject(new Engine::Label(text, "pirulen.ttf", 32, halfW + halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
+        AddNewObject(new Engine::Label(text, "pirulen.ttf", 26, halfW + halfW / 2, halfH / 4 + 110 + 50 * i, 255, 255, 255, 255, 0.5, 0.5));
     }
 }
     // Close the file.
