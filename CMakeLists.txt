@@ -27,6 +27,8 @@ add_executable(2024_I2P2_TowerDefense_with_answer
         Enemy/Enemy.hpp
         UI/Animation/ExplosionEffect.cpp
         UI/Animation/ExplosionEffect.hpp
+        Bullet/CustomBullet.cpp
+        Bullet/CustomBullet.hpp
         Bullet/FireBullet.cpp
         Bullet/FireBullet.hpp
         Engine/GameEngine.cpp
