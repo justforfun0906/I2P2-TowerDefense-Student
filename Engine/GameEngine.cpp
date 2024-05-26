@@ -20,6 +20,7 @@
 
 namespace Engine {
 	int GameEngine::remainingMoney = 0;
+	int GameEngine::stage = 1;
 	void GameEngine::initAllegro5() {
 		if (!al_init()) throw Allegro5Exception("failed to initialize allegro");
 
