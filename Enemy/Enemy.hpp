@@ -28,5 +28,7 @@ public:
 	void UpdatePath(const std::vector<std::vector<int>>& mapDistance);
 	void Update(float deltaTime) override;
 	void Draw() const override;
+	void SetSpeed(float speed);
+	float GetSpeed();
 };
 #endif // ENEMY_HPP

@@ -5,5 +5,6 @@
 class CustomEnemy : public Enemy {
 public:
 	CustomEnemy(int x, int y);
+	void Update(float deltaTime) override;
 };
 #endif // SOLDIERENEMY_HPP
